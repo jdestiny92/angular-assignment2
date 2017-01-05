@@ -7,30 +7,35 @@
     <script type="text/javascript" src="app.js"></script>
   </head>
 
-<body>
+<body ng-app="boughtChecker">
   <div class="container">
   <h1>Shopping List Check Off</h1>
 
   <div class="row">
 
     <!-- To Buy List -->
-    <div class="col-md-6">
+    <div class="col-md-6" ng-controller="buyController as buy">
      <h2>To Buy:</h2>
      <ul>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       <li ng-repeat="item in buy.list">
+        {{item.quantity}} {{item.name}}
+        <button ng-click="buy.remove($index);">Bought!</button>
+       </li>
      </ul>
-     <div>Everything is bought!</div>
+     <div ng-if="buy.condition[0]"><p style="color:green;"><b>Everything is bought!</b></p></div>
     </div>
 
     <!-- Already Bought List -->
-    <div class="col-md-6">
+    <div class="col-md-6" ng-controller="boughtController as bought">
      <h2>Already Bought:</h2>
      <ul>
-       <li>Bought 10 cookies</li>
+       <li ng-repeat="item in bought.list">
+         Bought {{item.quantity}} {{item.name}}
+       </li>
      </ul>
-     <div>Nothing bought yet.</div>
+     <div ng-if="!bought.condition[0]"><p style="color:red;"><b>Nothing bought yet.</b></p></div>
     </div>
+
   </div>
 </div>
 
